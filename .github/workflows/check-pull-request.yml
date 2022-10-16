@@ -1,0 +1,41 @@
+name: Check Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node: [16, 14]
+        os:
+          - ubuntu-latest
+          - macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+
+      - name: Install
+        env:
+          CI: true
+        run: npm ci
+
+      - name: Build
+        if: success()
+        run: npm run build
+
+      - name: Test
+        if: success()
+        run: npm run test:prod

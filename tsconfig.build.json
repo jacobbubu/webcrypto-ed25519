@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "outDir": "dist"
+  },
+  "extends": "./tsconfig.base",
+  "include": ["src"]
+}
