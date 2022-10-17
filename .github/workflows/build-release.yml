@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [16, 14]
+        node: [18, 16]
         os:
           - ubuntu-latest
           - macOS-latest
